@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
+using MusicCatalog.Application.Services.UserContext;
 
 namespace MusicCatalog.Application
 {
@@ -18,6 +19,8 @@ namespace MusicCatalog.Application
             services.AddAutoMapper(AssemblyReference.ApplicationAssembly);
             services.AddFluentValidationAutoValidation();
             services.AddValidatorsFromAssembly(AssemblyReference.ApplicationAssembly);
+
+            services.AddScoped<IUserContextService, UserContextService>();
 
             return services;
         }
