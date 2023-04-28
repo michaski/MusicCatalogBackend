@@ -9,7 +9,7 @@ using MusicCatalog.Application.Auth.Responses;
 using MusicCatalog.Application.Mappings;
 using MusicCatalog.Domain.Entities;
 
-namespace MusicCatalog.Application.Auth.Commands
+namespace MusicCatalog.Application.Auth.Commands.Register
 {
     public class RegisterCommand : IRequest<RegisterResponse>, IMap
     {

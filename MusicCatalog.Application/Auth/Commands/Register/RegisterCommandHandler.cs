@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using MusicCatalog.Application.Auth.Responses;
 using MusicCatalog.Domain.Entities;
 
-namespace MusicCatalog.Application.Auth.Commands
+namespace MusicCatalog.Application.Auth.Commands.Register
 {
     public class RegisterCommandHandler : IRequestHandler<RegisterCommand, RegisterResponse>
     {
