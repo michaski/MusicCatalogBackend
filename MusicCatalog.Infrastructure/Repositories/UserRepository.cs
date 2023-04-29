@@ -8,7 +8,7 @@ using MusicCatalog.Domain.Entities;
 using MusicCatalog.Domain.Interfaces;
 using MusicCatalog.Infrastructure.Data;
 
-namespace MusicCatalog.Infrastructure.Repositoires
+namespace MusicCatalog.Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository
     {
