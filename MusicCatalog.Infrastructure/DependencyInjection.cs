@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using MusicCatalog.Domain.Interfaces;
+using MusicCatalog.Infrastructure.Repositoires;
 
 namespace MusicCatalog.Infrastructure
 {
@@ -11,6 +13,7 @@ namespace MusicCatalog.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
+            services.AddScoped<IUserRepository, UserRepository>();
 
             return services;
         }

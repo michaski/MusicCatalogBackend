@@ -7,7 +7,7 @@ namespace MusicCatalog.Api.Controllers.V1
 {
     [ApiController]
     [ApiVersion("1.0")]
-    [Route("/api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class AuthController : ControllerBase
     {
         private readonly ISender _mediator;
@@ -17,14 +17,14 @@ namespace MusicCatalog.Api.Controllers.V1
             _mediator = mediator;
         }
 
-        [HttpPost("/register")]
+        [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterCommand registerCommand)
         {
             var result = await _mediator.Send(registerCommand);
             return result.Succeeded ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("/login")]
+        [HttpPost("login")]
         public async Task<IActionResult> Login(LoginCommand loginCommand)
         {
             var result = await _mediator.Send(loginCommand);
