@@ -13,6 +13,11 @@ namespace MusicCatalog.Infrastructure.Data
 {
     public class MusicCatalogDataContext : IdentityDbContext<User>
     {
+        public DbSet<Album> Albums { get; set; }
+        public DbSet<Track> Tracks { get; set; }
+        public DbSet<AlbumType> AlbumTypes { get; set; }
+
+
         public MusicCatalogDataContext(DbContextOptions<MusicCatalogDataContext> options)
             : base(options) { }
 
@@ -32,6 +37,8 @@ namespace MusicCatalog.Infrastructure.Data
                     RoleId = rolesSeed[0].Id,
                     UserId = superAdminSeed.Id
                 });
+            modelBuilder.Entity<AlbumType>()
+                .HasData(AlbumTypesDbSeedData.AlbumTypes);
         }
     }
 }
