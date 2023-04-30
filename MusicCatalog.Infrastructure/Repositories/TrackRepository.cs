@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using MusicCatalog.Domain.Entities;
 using MusicCatalog.Domain.Interfaces;
 using MusicCatalog.Infrastructure.Data;
@@ -18,11 +19,17 @@ namespace MusicCatalog.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Track>> CreateTracksAsync(IEnumerable<Track> tracks)
+        public async Task<Track> GetTrackByIdAsync(Guid id)
         {
-            _context.Tracks.AddRange(tracks);
+            return await _context.Tracks
+                .FirstOrDefaultAsync(track => track.Id == id);
+        }
+
+        public async Task<Track> CreateTrackAsync(Track track)
+        {
+            _context.Tracks.Add(track);
             await _context.SaveChangesAsync();
-            return tracks;
+            return track;
         }
 
         public async Task UpdateTrackAsync(Track track)

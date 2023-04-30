@@ -9,7 +9,8 @@ namespace MusicCatalog.Domain.Interfaces
 {
     public interface ITrackRepository
     {
-        Task<IEnumerable<Track>> CreateTracksAsync(IEnumerable<Track> tracks);
+        Task<Track> GetTrackByIdAsync(Guid id);
+        Task<Track> CreateTrackAsync(Track track);
         Task UpdateTrackAsync(Track track);
         Task DeleteTrackAsync(Track track);
     }
