@@ -53,8 +53,20 @@ namespace MusicCatalog.Api.Controllers.V1
         [HttpPut]
         public async Task<IActionResult> UpdateAlbum(UpdateAlbumCommand command)
         {
-            var succeeded = await _mediator.Send(command);
-            return succeeded switch
+            var result = await _mediator.Send(command);
+            return result switch
+            {
+                400 => BadRequest(),
+                403 => Forbid(),
+                204 => NoContent()
+            };
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAlbum([FromRoute] DeleteAlbumCommand command)
+        {
+            var result = await _mediator.Send(command);
+            return result switch
             {
                 400 => BadRequest(),
                 403 => Forbid(),
