@@ -21,7 +21,8 @@ namespace MusicCatalog.Application.Albums.Validators
             RuleFor(dto => dto.DurationMinutes)
                 .GreaterThanOrEqualTo(0);
             RuleFor(dto => dto.DurationSeconds)
-                .ExclusiveBetween(0, 60);
+                .ExclusiveBetween(0, 60).When(dto => dto.DurationMinutes == 0, ApplyConditionTo.CurrentValidator)
+                .InclusiveBetween(0, 59).When(dto => dto.DurationMinutes > 0, ApplyConditionTo.CurrentValidator);
         }
     }
 }

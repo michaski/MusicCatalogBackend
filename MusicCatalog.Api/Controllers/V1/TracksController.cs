@@ -38,5 +38,17 @@ namespace MusicCatalog.Api.Controllers.V1
                 203 => CreatedAtAction("GetTrackById", new { id = result.TrackResponse.Id }, result.TrackResponse)
             };
         }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateTrack(UpdateTrackCommand command)
+        {
+            var result = await _mediator.Send(command);
+            return result switch
+            {
+                400 => BadRequest(),
+                403 => Forbid(),
+                204 => NoContent()
+            };
+        }
     }
 }

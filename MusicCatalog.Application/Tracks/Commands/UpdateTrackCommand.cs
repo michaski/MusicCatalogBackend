@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MediatR;
 
 namespace MusicCatalog.Application.Tracks.Commands
 {
-    public class UpdateTrackCommand
+    public class UpdateTrackCommand : IRequest<int>
     {
         public Guid Id { get; set; }
         public string Artist { get; set; }
