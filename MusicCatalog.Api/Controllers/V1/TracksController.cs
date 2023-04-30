@@ -50,5 +50,17 @@ namespace MusicCatalog.Api.Controllers.V1
                 204 => NoContent()
             };
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTrack([FromRoute] DeleteTrackCommand command)
+        {
+            var result = await _mediator.Send(command);
+            return result switch
+            {
+                400 => BadRequest(),
+                403 => Forbid(),
+                204 => NoContent()
+            };
+        }
     }
 }
