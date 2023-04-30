@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MusicCatalog.Application.Albums.Commands;
 using MusicCatalog.Application.Albums.Queries;
+using MusicCatalog.Domain.Utils;
 
 namespace MusicCatalog.Api.Controllers.V1
 {
@@ -20,9 +21,9 @@ namespace MusicCatalog.Api.Controllers.V1
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProvidersAllAlbums()
+        public async Task<IActionResult> GetProvidersAllAlbums([FromQuery] QueryFilters filters)
         {
-            var query = new GetProvidersAllAlbumsQuery();
+            var query = new GetProvidersAllAlbumsQuery(filters);
             var result = await _mediator.Send(query);
             return Ok(result);
         }

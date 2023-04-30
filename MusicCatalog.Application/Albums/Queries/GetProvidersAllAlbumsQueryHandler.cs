@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using MusicCatalog.Application.Albums.Responses;
+using MusicCatalog.Application.Dtos.Pagination;
 using MusicCatalog.Application.Services.UserContext;
 using MusicCatalog.Domain.Entities;
 using MusicCatalog.Domain.Interfaces;
+using MusicCatalog.Domain.Utils;
 
 namespace MusicCatalog.Application.Albums.Queries
 {
-    public class GetProvidersAllAlbumsQueryHandler : IRequestHandler<GetProvidersAllAlbumsQuery, IEnumerable<ListAlbumResponse>>
+    public class GetProvidersAllAlbumsQueryHandler : IRequestHandler<GetProvidersAllAlbumsQuery, PagedResult<ListAlbumResponse>>
     {
         private readonly IAlbumRepository _repository;
         private readonly IUserContextService _userContextService;
@@ -25,10 +27,12 @@ namespace MusicCatalog.Application.Albums.Queries
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<ListAlbumResponse>> Handle(GetProvidersAllAlbumsQuery request, CancellationToken cancellationToken)
+        public async Task<PagedResult<ListAlbumResponse>> Handle(GetProvidersAllAlbumsQuery request, CancellationToken cancellationToken)
         {
-            var albums = await _repository.GetProvidersAlbumsAsync(_userContextService.UserId.Value.ToString());
-            return _mapper.Map<IEnumerable<Album>, IEnumerable<ListAlbumResponse>>(albums);
+            var queryResult = await _repository.GetProvidersAlbumsAsync(_userContextService.UserId.Value.ToString(), request.Filters);
+            var mappedAlbums = _mapper.Map<IEnumerable<Album>, IEnumerable<ListAlbumResponse>>(queryResult.Items);
+            var resultPage = new ResultPage<ListAlbumResponse>(mappedAlbums, queryResult.TotalItemsCount);
+            return new PagedResult<ListAlbumResponse>(resultPage, request.Filters);
         }
     }
 }
