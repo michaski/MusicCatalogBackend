@@ -49,5 +49,17 @@ namespace MusicCatalog.Api.Controllers.V1
             var result = await _mediator.Send(command);
             return CreatedAtAction("GetAlbumById", new { Id = result.Id }, result);
         }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateAlbum(UpdateAlbumCommand command)
+        {
+            var succeeded = await _mediator.Send(command);
+            return succeeded switch
+            {
+                400 => BadRequest(),
+                403 => Forbid(),
+                204 => NoContent()
+            };
+        }
     }
 }
