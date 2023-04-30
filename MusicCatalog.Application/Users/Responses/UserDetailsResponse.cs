@@ -18,8 +18,8 @@ namespace MusicCatalog.Application.Users.Responses
         public void Mapping(Profile profile)
         {
             profile.CreateMap<User, UserDetailsResponse>()
-                .ForMember(res => res.Name, cfg => cfg.MapFrom(u => u.UserName))
-                .ForMember(res => res.Id, cfg => cfg.MapFrom(u => Guid.Parse(u.Id)));
+                .ForMember(res => res.Name, opt => opt.MapFrom(u => u.UserName))
+                .ForMember(res => res.Id, opt => opt.MapFrom(u => Guid.Parse(u.Id)));
         }
     }
 }

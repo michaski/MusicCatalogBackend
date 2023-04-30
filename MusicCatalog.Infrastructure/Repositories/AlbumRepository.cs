@@ -19,20 +19,23 @@ namespace MusicCatalog.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Album>> GetProvidersAlbumsAsync(Guid providerId)
+        public async Task<IEnumerable<Album>> GetProvidersAlbumsAsync(string providerId)
         {
             return await _context.Albums
                 .Where(album => album.ProviderId == providerId)
+                .Include(album => album.Type)
                 .ToListAsync();
         }
 
         public async Task<Album?> GetByIdAsync(Guid id)
         {
             return await _context.Albums
+                .Include(album => album.Type)
+                .Include(album => album.Tracks)
                 .FirstOrDefaultAsync(album => album.Id == id);
         }
 
-        public async Task<Album> InsertNewAlbumAsync(Album album)
+        public async Task<Album> CreateNewAlbumAsync(Album album)
         {
             _context.Albums.Add(album);
             await _context.SaveChangesAsync();

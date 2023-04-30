@@ -14,7 +14,7 @@ namespace MusicCatalog.Domain.Entities
         public int ReleaseYear { get; set; }
         public Guid TypeId { get; set; }
         public AlbumType Type { get; set; }
-        public Guid ProviderId { get; set; }
+        public string ProviderId { get; set; }
         public User Provider { get; set; }
         public ICollection<Track> Tracks { get; set; }
     }

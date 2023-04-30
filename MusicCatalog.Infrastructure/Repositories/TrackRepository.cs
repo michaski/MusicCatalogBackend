@@ -18,7 +18,7 @@ namespace MusicCatalog.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Track>> InsertTracksAsync(IEnumerable<Track> tracks)
+        public async Task<IEnumerable<Track>> CreateTracksAsync(IEnumerable<Track> tracks)
         {
             _context.Tracks.AddRange(tracks);
             await _context.SaveChangesAsync();

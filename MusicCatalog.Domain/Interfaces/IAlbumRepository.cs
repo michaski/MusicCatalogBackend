@@ -9,9 +9,9 @@ namespace MusicCatalog.Domain.Interfaces
 {
     public interface IAlbumRepository
     {
-        Task<IEnumerable<Album>> GetProvidersAlbumsAsync(Guid providerId);
+        Task<IEnumerable<Album>> GetProvidersAlbumsAsync(string providerId);
         Task<Album?> GetByIdAsync(Guid id);
-        Task<Album> InsertNewAlbumAsync(Album album);
+        Task<Album> CreateNewAlbumAsync(Album album);
         Task UpdateAlbumAsync(Album album);
         Task DeleteAlbumAsync(Album album);
     }
