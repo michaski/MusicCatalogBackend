@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MusicCatalog.Application.Users.Commands;
 using MusicCatalog.Application.Users.Queries;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace MusicCatalog.Api.Controllers.V1
 {
@@ -20,6 +21,7 @@ namespace MusicCatalog.Api.Controllers.V1
 
         [Authorize(Roles = "Admin")]
         [HttpGet("unactivated")]
+        [SwaggerOperation(Summary = "Gets all unactivated users.")]
         public async Task<IActionResult> GetAllUnactivated()
         {
             var query = new GetAllUnactivatedQuery();
@@ -28,6 +30,8 @@ namespace MusicCatalog.Api.Controllers.V1
         }
 
         [HttpPut("unactivated/{UserId}")]
+        [Authorize(Roles = "Admin")]
+        [SwaggerOperation(Summary = "Activate user with given id.")]
         public async Task<IActionResult> ActivateUser([FromRoute] ActivateUserCommand command)
         {
             var result = await _mediator.Send(command);

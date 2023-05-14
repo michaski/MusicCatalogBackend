@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MusicCatalog.Application.Albums.Commands;
 using MusicCatalog.Application.Albums.Queries;
 using MusicCatalog.Domain.Utils;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace MusicCatalog.Api.Controllers.V1
 {
@@ -21,6 +22,7 @@ namespace MusicCatalog.Api.Controllers.V1
         }
 
         [HttpGet]
+        [SwaggerOperation(Summary = "Get all provider's albums.")]
         public async Task<IActionResult> GetProvidersAllAlbums([FromQuery] QueryFilters filters)
         {
             var query = new GetProvidersAllAlbumsQuery(filters);
@@ -29,6 +31,7 @@ namespace MusicCatalog.Api.Controllers.V1
         }
 
         [HttpGet("{id}")]
+        [SwaggerOperation(Summary = "Get album details.")]
         public async Task<IActionResult> GetAlbumById(Guid id)
         {
             var query = new GetAlbumDetailsQuery(id);
@@ -45,6 +48,7 @@ namespace MusicCatalog.Api.Controllers.V1
         }
 
         [HttpPost]
+        [SwaggerOperation(Summary = "Create new album.")]
         public async Task<IActionResult> CreateNewAlbum(CreateNewAlbumCommand command)
         {
             var result = await _mediator.Send(command);
@@ -52,6 +56,7 @@ namespace MusicCatalog.Api.Controllers.V1
         }
 
         [HttpPut]
+        [SwaggerOperation(Summary = "Update album's info.")]
         public async Task<IActionResult> UpdateAlbum(UpdateAlbumCommand command)
         {
             var result = await _mediator.Send(command);
@@ -64,6 +69,7 @@ namespace MusicCatalog.Api.Controllers.V1
         }
 
         [HttpDelete("{id}")]
+        [SwaggerOperation(Summary = "Delete album with given id.")]
         public async Task<IActionResult> DeleteAlbum([FromRoute] DeleteAlbumCommand command)
         {
             var result = await _mediator.Send(command);

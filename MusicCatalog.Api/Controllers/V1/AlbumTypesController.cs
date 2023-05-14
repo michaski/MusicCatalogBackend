@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MusicCatalog.Application.AlbumTypes.Queries;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace MusicCatalog.Api.Controllers.V1
 {
@@ -19,6 +20,7 @@ namespace MusicCatalog.Api.Controllers.V1
         }
 
         [HttpGet]
+        [SwaggerOperation(Summary = "Get all defined album types.")]
         public async Task<IActionResult> GetAll()
         {
             var query = new GetAllAlbumTypesQuery();
