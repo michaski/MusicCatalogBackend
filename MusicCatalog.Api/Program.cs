@@ -19,6 +19,8 @@ var app = builder.Build();
 
 var apiVersionDescriptorProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 
+app.UseCors("MusicCatalogCorsPolicy");
+
 app.UseHealthChecks("/health", new HealthCheckOptions
 {
     ResponseWriter = HealthCheckWriter.WriteHealthCheckResponseAsync
